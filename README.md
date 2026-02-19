@@ -2,7 +2,7 @@
 
 A high-performance, secure, and scalable Authentication Service built with **Rust**. This project leverages a **Clean Architecture** approach to separate concerns, ensuring maintainability and testability. It supports both **REST** and **gRPC** interfaces, backed by a robust database layer.
 
-## 🚀 Features
+## Features
 
 -   **Dual Interface**: Exposes both a RESTful API and gRPC endpoints for flexible integration.
 -   **Clean Architecture**: Separation of concerns into handlers, services, repositories, and models.
@@ -10,14 +10,14 @@ A high-performance, secure, and scalable Authentication Service built with **Rus
 -   **Scalability**: Dockerized and Kubernetes-ready.
 -   **Observability**: Integrated logging and middleware.
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 -   **Language**: [Rust](https://www.rust-lang.org/) (2024 Edition)
 -   **Containerization**: Docker & Docker Compose
 -   **Orchestration**: Kubernetes
 -   **Configuration**: Environment variables (`dotenv`)
 
-## 📂 Project Structure
+## Project Structure
 
 The project follows a modular structure to keep the codebase organized:
 
@@ -40,7 +40,7 @@ migrations/         # Database migration scripts
 scripts/            # Utility scripts for build/deploy
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -101,7 +101,7 @@ To deploy to a Kubernetes cluster:
     kubectl apply -f k8.yaml
     ```
 
-## 🧪 Testing
+## Testing
 
 Run the test suite to ensure everything is working correctly:
 
@@ -109,6 +109,6 @@ Run the test suite to ensure everything is working correctly:
 cargo test
 ```
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
