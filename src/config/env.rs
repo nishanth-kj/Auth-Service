@@ -1,5 +1,5 @@
-use std::env;
 use dotenvy::dotenv;
+use std::env;
 use std::str::FromStr;
 
 #[derive(Debug, PartialEq, Clone)]

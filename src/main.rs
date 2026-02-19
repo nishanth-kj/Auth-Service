@@ -1,19 +1,19 @@
 use actix_web::{App, HttpServer, web};
-use tonic::transport::Server;
-use std::net::SocketAddr;
-use log::{info, warn, error, debug};
-use auth_service::config::env::{get_env, Environment};
+use auth_service::config::env::{Environment, get_env};
+use auth_service::config::swagger::ApiDoc;
 use auth_service::grpc::implementation::test_impl::MyTestService;
 use auth_service::grpc::traits::test::test_service_server::TestServiceServer;
+use log::{debug, error, info, warn};
+use std::net::SocketAddr;
+use tonic::transport::Server;
 use utoipa::OpenApi;
 use utoipa_swagger_ui::SwaggerUi;
-use auth_service::config::swagger::ApiDoc;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Load environment variables
     dotenvy::dotenv().ok();
-    
+
     let env = get_env();
 
     // Initialize logging based on environment
@@ -21,7 +21,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Environment::Development => "DEVELOPMENT",
         Environment::Production => "PRODUCTION",
     };
-    
+
     if let Err(e) = auth_service::config::logger::setup_logger(env_str) {
         println!("Error setting up logger: {}", e);
     }
@@ -48,18 +48,22 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .route("/", web::get().to(|| async { "Auth Service is running!" }))
             .service(
                 web::scope("/api")
-                    .route("/", web::get().to(|| async { "Auth Service is running (API)!" }))
-                    .route("/health", web::get().to(|| async { "OK" }))
+                    .route(
+                        "/",
+                        web::get().to(|| async { "Auth Service is running (API)!" }),
+                    )
+                    .route("/health", web::get().to(|| async { "OK" })),
             );
 
         if env_for_server == Environment::Development {
-            app = app.service(
-                SwaggerUi::new("/swagger-ui/{_:.*}")
-                    .url("/api-docs/openapi.json", ApiDoc::openapi())
-            )
-            .service(web::redirect("/swagger-ui", "/swagger-ui/"));
+            app = app
+                .service(
+                    SwaggerUi::new("/swagger-ui/{_:.*}")
+                        .url("/api-docs/openapi.json", ApiDoc::openapi()),
+                )
+                .service(web::redirect("/swagger-ui", "/swagger-ui/"));
         }
-        
+
         app
     })
     .bind(http_addr)?
@@ -69,7 +73,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Start gRPC Server (Tonic)
     let grpc_server = Server::builder()
-        .add_service(TestServiceServer::new(MyTestService::default()))
+        .add_service(TestServiceServer::new(MyTestService))
         .serve(grpc_addr);
 
     info!("gRPC server listening on {}", grpc_addr);
@@ -86,4 +90,3 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-
