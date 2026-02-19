@@ -1,0 +1,27 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Build artifacts
+target/
+
+# Environment variables
+.env
+
+# Documentation and tests
+docs/
+tests/
+README.md
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Logs and temporary files
+*.log
+*.tmp
