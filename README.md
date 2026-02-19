@@ -21,7 +21,7 @@ A high-performance, secure, and scalable Authentication Service built with **Rus
 
 The project follows a modular structure to keep the codebase organized:
 
-\`\`\`
+```
 src/
 ├── config/         # Application configuration and environment variable parsing
 ├── db/             # Database connection pooling and initialization
@@ -38,7 +38,7 @@ src/
 proto/              # Protocol Buffers definitions for gRPC
 migrations/         # Database migration scripts
 scripts/            # Utility scripts for build/deploy
-\`\`\`
+```
 
 ## 🚀 Getting Started
 
@@ -52,26 +52,26 @@ scripts/            # Utility scripts for build/deploy
 
 Create a `.env` file in the root directory (or copy the example):
 
-\`\`\`bash
+```bash
 cp .env.example .env
-\`\`\`
+```
 
 Ensure the following variables are set:
 
-\`\`\`env
+```env
 JWT_SECRET=your_secure_secret
 ALLOWED_HOST=*
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/auth-service
 ENVIRONMENT=development
-\`\`\`
+```
 
 ### 2. Running Locally (Docker Compose)
 
 The easiest way to run the service is via Docker Compose, which handles the application and any potential dependencies (like a DB).
 
-\`\`\`bash
+```bash
 docker-compose up --build
-\`\`\`
+```
 
 The service will be available at `http://localhost:8080`.
 
@@ -79,35 +79,35 @@ The service will be available at `http://localhost:8080`.
 
 If you prefer running directly on your machine:
 
-\`\`\`bash
+```bash
 # Build the project
 cargo build --release
 
 # Run the project
 cargo run
-\`\`\`
+```
 
 ### 4. Kubernetes Deployment
 
 To deploy to a Kubernetes cluster:
 
 1.  **Create Secrets**:
-    \`\`\`bash
+    ```bash
     kubectl create secret generic auth-service-secrets --from-env-file=.env
-    \`\`\`
+    ```
 
 2.  **Apply Manifests**:
-    \`\`\`bash
+    ```bash
     kubectl apply -f k8.yaml
-    \`\`\`
+    ```
 
 ## 🧪 Testing
 
 Run the test suite to ensure everything is working correctly:
 
-\`\`\`bash
+```bash
 cargo test
-\`\`\`
+```
 
 ## 📄 License
 
