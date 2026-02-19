@@ -5,6 +5,9 @@ FROM rust:latest AS builder
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
+# Install protobuf compiler
+RUN apt-get update && apt-get install -y protobuf-compiler && rm -rf /var/lib/apt/lists/*
+
 # Copy the Cargo configuration files first to cache dependencies
 COPY Cargo.toml Cargo.lock ./
 
@@ -39,7 +42,7 @@ RUN apt-get update && apt-get install -y \
 
 # Copy the compiled binary from the builder stage
 # Note: Adjust the binary name if your Cargo.toml package name is different
-COPY --from=builder /usr/src/app/target/release/Auth-Service /usr/local/bin/auth-service
+COPY --from=builder /usr/src/app/target/release/auth-service /usr/local/bin/auth-service
 
 # Set the binary as the entrypoint
 CMD ["auth-service"]

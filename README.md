@@ -61,6 +61,8 @@ Ensure the following variables are set:
 \`\`\`env
 JWT_SECRET=your_secure_secret
 ALLOWED_HOST=*
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/auth-service
+ENVIRONMENT=development
 \`\`\`
 
 ### 2. Running Locally (Docker Compose)

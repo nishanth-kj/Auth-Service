@@ -33,6 +33,8 @@ spec:
           value: "*"
         - name: ENVIRONMENT
           value: "PRODUCTION"
+        - name: DATABASE_URL
+          value: "postgres://postgres:password@postgres-service:5432/auth_service"
         envFrom:
         - secretRef:
             name: auth-service-secrets
